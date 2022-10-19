@@ -1,0 +1,42 @@
+DELIMITER //
+
+CREATE PROCEDURE NotifyNewPublication(
+    IN idUsuari INT,
+    IN idPublicacio INT
+)
+BEGIN
+    DECLARE idSeguidor INT DEFAULT 0;
+    DECLARE finished INT DEFAULT FALSE;
+
+    DECLARE followers_cursor CURSOR FOR
+        select r_usuari_usuari.idSeguidor from r_usuari_usuari WHERE r_usuari_usuari.idUsuari = idUsuari;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = TRUE;
+
+    OPEN followers_cursor;
+
+    iteration: LOOP
+        FETCH followers_cursor INTO idSeguidor;
+
+        IF finished THEN
+            LEAVE iteration;
+        END IF;
+
+        INSERT INTO missatge(
+            idUsusariEmisor,
+            idUsusariReceptor,
+            textMissatge
+        )
+        VALUES (
+            idUsuari,
+            idSeguidor,
+            'JAJA TOMA NOVA PUBLICAÇAO BRO'
+        )
+
+
+    END LOOP;
+    CLOSE followers_cursor;
+
+END //
+
+DELIMITER ;
