@@ -109,7 +109,7 @@ $sql = "SELECT imgProfile,textProfile,idUsuari,nomUsuari from usuari where nomUs
 		<table>
 			<tr>
 				<th class="imgP">
-					<?php echo '<img class="iper" src= '.$img.' alt="Girl in a jacket" width="100" height="100">'; ?>					
+					<?php echo '<img class="iper" src= "'.$img.'" alt="Girl in a jacket" width="100" height="100">'; ?>					
 				</th>
 				<th class="textP">
 					<p > <?php echo $profText; ?>
@@ -136,13 +136,14 @@ $sql = "SELECT imgProfile,textProfile,idUsuari,nomUsuari from usuari where nomUs
 				echo "<th>
 				<div class='slideshow-container'>";
 				while ($rowhi = $resulthi->fetch_assoc()) {
+					$img = 'img/'.$rowhi['img'];
 					echo"<div class='mySlides fade id".$id."'>
 							<div class='numbertext'>1 / 3</div>
 							<img src='".$img."' style='width:300px; height:300px'>
 							<div class='text'>".$rowhi['nomHistoria']."</div>
 						</div>";
 
-					$img = 'img/'.$rowhi['img'];
+					
 				}
 							
 				echo  '<!-- Next and previous buttons -->

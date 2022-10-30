@@ -1,7 +1,7 @@
 <?php 
 session_start();
 include 'php/Conexio.php';
-$idP = $_GET['idP']; // output 2489
+$idP = $_GET['idP']; // id publicacio
 
 
 $user = $_SESSION["user"];
@@ -14,7 +14,7 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 	$result = mysqli_query($conexio,$sql);
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$img = $row['imgProfile'];
+			$img = "img/". $row['imgProfile'];
 			$profText =$row['textProfile'];
 			$idUser = $row['idUsuari']; 
 		}
@@ -23,6 +23,7 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 		$img = "img/duser.jpg";
 	}
 
+	//Cercam la publicacio i d'alla agafam l'imatge
 	$sql1 = "SELECT * from publicacio where idPub = '$idP'";
 	$result1 = mysqli_query($conexio,$sql1);
 	if ($result1->num_rows > 0) {
@@ -46,7 +47,7 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 		<table>
 			<tr>
 				<th class="imgP">
-					<?php echo '<img src= '.$img.' alt="Girl in a jacket" width="100" height="100">'; ?>					
+					<?php echo '<img src= "'.$img.'" alt="Girl in a jacket" width="100" height="100">'; ?>					
 				</th>
 				<th class="textP">
 					<p > <?php echo $profText; ?>	</p>
@@ -62,6 +63,8 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 				</th>
 			</tr>
 		</table>
+
+		<!--Guardam idPub i Descripcio. Al fer upload imatge, lo que es fa es crear una nova publicació amb l'ID de publicació com a ofreignKey, com si una publicació tingués com a referència una altre publicació (idRevPub), al submit ve aqui i procedeix a enviar la publicació-->
 		<form action="php/RUpublicacio.php" method="post" >
 			<input type="hidden" name="idPub" <?php echo "value='".$idP."'" ?> >
   			<textarea  type="textArea" id="fname" name="text"></textarea><br><br>

@@ -58,7 +58,6 @@ $nomSeguidor;
 <div align="center" class="main">
 		<?php 
 			$sqlF = "SELECT * from missatge join usuari where (missatge.idUsusariEmisor = '$idUser' or missatge.idUsusariReceptor = '$idUser') 
-			and (missatge.idUsusariEmisor = '$idUser' or missatge.idUsusariReceptor = '$idUser')
 			and(missatge.idUsusariEmisor = usuari.idUsuari)";
 			$resultF = mysqli_query($conexio,$sqlF);
 			if ($resultF->num_rows > 0) {

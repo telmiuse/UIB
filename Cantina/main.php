@@ -98,13 +98,12 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 				echo "<table style='width: 500px;'><tr><th>
 				<div class='slideshow-container'>";
 				while ($rowhi = $resulthi->fetch_assoc()) {
+					$img = 'img/'.$rowhi['img'];
 					echo"<div class='mySlides fade id".$id."'>
 							<!-- <div class='numbertext'>1 / 3</div> -->
 							<img src='".$img."' style='width:500px; height:500px'>
 							<div class='text'>".$rowhi['nomHistoria']."</div>
 						</div>";
-
-					$img = 'img/'.$rowhi['img'];
 				}
 							
 				echo  '<!-- Next and previous buttons -->
@@ -289,6 +288,7 @@ $sql = "SELECT imgProfile,textProfile,idUsuari from usuari where nomUsuari = '$u
 					<tr>
 						<th>
 							<form action="" method="post">
+								<!--Comentari-->
 								<input type="hidden" name="idPub" <?php echo "value='".$idPub."'" ?> >
 								<textarea  type="textArea" id="fname" name="coment" required></textarea>
 								<input type="submit" name="Publicar" value="Publicar">
